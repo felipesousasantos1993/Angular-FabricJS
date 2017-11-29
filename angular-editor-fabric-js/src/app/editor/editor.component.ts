@@ -148,7 +148,7 @@ export class EditorComponent implements OnInit {
       top: 50,
       fontFamily: 'Raleway',
       angle: 0,
-      fill: '#005b9b',
+      fill: '#005A9F',
       scaleX: 1,
       scaleY: 1,
       fontWeight: '',
@@ -555,10 +555,20 @@ export class EditorComponent implements OnInit {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     }
     else {  
-      var url = this.canvas.toDataURL('image/jpeg', 1.0);
+      var url = this.canvas.toDataURL({
+        format: 'jpeg',
+        quality: 1
+     });
       url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');   
-      this.href = url;
-      window.open(url);    
+      var uri = url;
+      
+      var downloadLink = document.createElement("a");
+      downloadLink.href = uri;
+      downloadLink.download = "Brasilcap.png";
+      
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
     }
   }
 
