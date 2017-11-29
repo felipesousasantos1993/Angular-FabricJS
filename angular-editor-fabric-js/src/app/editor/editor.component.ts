@@ -139,13 +139,13 @@ export class EditorComponent implements OnInit {
   addText() {
     let textString;
     if (textString == null || textString == undefined) {
-      textString = 'Insira seu texto aqui '
+      textString = 'Insira seu texto'
     } else {
       textString = this.textString;
     }
     let text = new fabric.IText(textString, {
       left: 50,
-      top: 50,
+      top: 40,
       fontFamily: 'Raleway',
       angle: 0,
       fill: '#005A9F',
@@ -560,6 +560,7 @@ export class EditorComponent implements OnInit {
         quality: 1
      });
       url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');   
+ 
       var uri = url;
       
       var downloadLink = document.createElement("a");
@@ -569,6 +570,7 @@ export class EditorComponent implements OnInit {
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
+ 
     }
   }
 
