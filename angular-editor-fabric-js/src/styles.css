@@ -1611,7 +1611,7 @@ th {
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;    
-    background-color: #FBE82F;
+    background: linear-gradient(to bottom right,#FBE82F, #FBE82F, #FFD403, #FFD302);
   }
   .row {
     margin-left: -15px;
