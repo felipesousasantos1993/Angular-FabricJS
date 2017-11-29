@@ -111,7 +111,6 @@ export class EditorComponent implements OnInit {
 
     this.inserirPlanoDeFundoBrasilcap();
 
-    this.props.fontFamily = 'Raleway';
  
     this.addText();
   }
@@ -153,7 +152,10 @@ export class EditorComponent implements OnInit {
       scaleX: 1,
       scaleY: 1,
       fontWeight: '',
-      hasRotatingPoint: true
+      hasRotatingPoint: false,
+      hasControls: false,
+      lockMovementY: true,
+      lockMovementX: true
     });
     this.extend(text, this.randomId());
     this.canvas.add(text);
@@ -556,10 +558,17 @@ export class EditorComponent implements OnInit {
       var url = this.canvas.toDataURL('image/jpeg', 1.0);
       url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');   
       this.href = url;
+<<<<<<< .mine
       setTimeout(function(){  
         document.getElementById('download').click(); 
       }, 3000);
     
+=======
+      window.open(url);    
+
+
+
+>>>>>>> .theirs
     }
   }
 
