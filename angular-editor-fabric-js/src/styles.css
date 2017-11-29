@@ -3007,7 +3007,7 @@ th {
   }
   .btn {
     display: inline-block;
-    margin-bottom: 0;
+    margin-bottom: 5px;
     font-weight: normal;
     text-align: center;
     vertical-align: middle;
