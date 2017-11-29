@@ -3,6 +3,7 @@ import {ColorPickerService} from 'angular2-color-picker';
 
 import 'fabric';
 declare const fabric: any;
+declare const $: any;
 
 @Component({
   selector: 'app-editor',
@@ -42,6 +43,8 @@ export class EditorComponent implements OnInit {
   private imageEditor: boolean = false;
   private figureEditor: boolean = false;
   private selected: any;
+
+  public href;
 
   constructor(private cpService: ColorPickerService) { }
 
@@ -108,7 +111,7 @@ export class EditorComponent implements OnInit {
 
     this.inserirPlanoDeFundoBrasilcap();
 
-    this.props.fontFamily = 'Ubuntu-Regular';
+    this.props.fontFamily = 'Raleway';
  
     this.addText();
   }
@@ -137,18 +140,18 @@ export class EditorComponent implements OnInit {
   addText() {
     let textString;
     if (textString == null || textString == undefined) {
-      textString = 'Input your text here ....'
+      textString = 'Insira seu texto aqui '
     } else {
       textString = this.textString;
     }
     let text = new fabric.IText(textString, {
       left: 10,
       top: 10,
-      fontFamily: 'helvetica',
+      fontFamily: 'Raleway',
       angle: 0,
-      fill: '#000000',
-      scaleX: 0.5,
-      scaleY: 0.5,
+      fill: '#00f',
+      scaleX: 1,
+      scaleY: 1,
       fontWeight: '',
       hasRotatingPoint: true
     });
@@ -487,14 +490,16 @@ export class EditorComponent implements OnInit {
     if (activeObject) {
       this.canvas.remove(activeObject);
       // this.textString = '';
-      this.addText();
+      if (activeObject.text) {
+        this.addText();
+      }
     }
     else if (activeGroup) {
       let objectsInGroup = activeGroup.getObjects();
       this.canvas.discardActiveGroup();
       let self = this;
       objectsInGroup.forEach(function(object) {
-        self.canvas.remove(object);
+        self.canvas.remove(object); 
       });
     }
   }
@@ -536,6 +541,7 @@ export class EditorComponent implements OnInit {
   limpar() {
      this.canvas.clear();
      this.inserirPlanoDeFundoBrasilcap();
+     this.addText();
   }
 
   share() {     
@@ -547,10 +553,13 @@ export class EditorComponent implements OnInit {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     }
     else {  
-      var url = this.canvas.toDataURL('png');
-      url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
-      console.log(url);
-      window.open(url);
+      var url = this.canvas.toDataURL('image/jpeg', 1.0);
+      url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');   
+      this.href = url;
+      setTimeout(function(){  
+        ocument.getElementById('download').click(); 
+      }, 3000);
+    
     }
   }
 

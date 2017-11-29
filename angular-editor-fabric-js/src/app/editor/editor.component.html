@@ -13,7 +13,8 @@
         <i class="fa fa-ban" aria-hidden="true"></i> Limpar</button>
       <button data-toggle="tooltip" data-placement="bottom" title="Deletar Elemento" type="button" class="btn btn-default" [disabled]="!selected"
         (click)="removeSelected();">
-        <i class="fa fa-trash" aria-hidden="true"> Deletar</i>
+        <i class="fa fa-trash" aria-hidden="true"> </i>
+        Deletar
       </button>
     </div>
   </div>
@@ -34,6 +35,8 @@
         </div>
       </div>
     </div>
+
+    
 
     <div class="panel panel-default">
       <div class="panel-heading">Adicionar Imagem</div>
@@ -58,7 +61,19 @@
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/zubat.svg">
       </div>
     </div>
- 
+
+    <div class="custom-item" *ngIf="selected && textEditor">
+        <div class="custom-item-title">Fonte</div>
+        <div class="custom-item-body">
+          <select [(ngModel)]="props.fontFamily" class="form-control" (change)="setFontFamily()">
+            <option value="Raleway">Raleway</option>
+            <option value="Archivo Black">Archivo</option>            
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <a id="download" (href)="href" download="teste.png"></a>
 
 </div>
  
