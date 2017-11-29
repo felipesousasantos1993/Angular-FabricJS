@@ -1,31 +1,35 @@
- <hr/>
+<hr/>
+
+<div class="col-lg-8">
+  <canvas id="canvas"></canvas>
+  <br/>
+  <div class="row">
+    <div class="panel-heading">
+      <button data-toggle="tooltip" data-placement="bottom" title="Compartilhar" type="button" class="btn btn-default" (click)="compartilhar();">
+        <i class="fa fa-share" aria-hidden="true"></i> Share On</button>
+      <button data-toggle="tooltip" data-placement="bottom" title="Salvar" type="button" class="btn btn-default" (click)="salvarImagem();">
+        <i class="fa fa-download" aria-hidden="true"></i> Salvar</button>
+      <button data-toggle="tooltip" data-placement="bottom" title="Limpar" type="button" class="btn btn-default" (click)="limpar();">
+        <i class="fa fa-ban" aria-hidden="true"></i> Limpar</button>
+      <button data-toggle="tooltip" data-placement="bottom" title="Deletar Elemento" type="button" class="btn btn-default" [disabled]="!selected"
+        (click)="removeSelected();">
+        <i class="fa fa-trash" aria-hidden="true"> Deletar</i>
+      </button>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-lg-3">
-      <div class="panel panel-default">
-          <div class="panel-heading">Opções</div>
-          <div class="panel-body text-center">
-            <div class="btn-group" role="group" aria-label="...">
-              <button data-toggle="tooltip" data-placement="bottom" title="Deletar Elemento" type="button" class="btn btn-danger" [disabled]="!selected"
-                (click)="removeSelected();"><i class="fa fa-trash" aria-hidden="true"></i></button>
-              <button data-toggle="tooltip" data-placement="bottom" title="Enviar pra trás" type="button" class="btn btn-default" [disabled]="!selected"
-                (click)="sendToBack();"><i class="fa fa-level-down" aria-hidden="true"></i></button>
-              <button data-toggle="tooltip" data-placement="bottom" title="Enviar pra frente" type="button" class="btn btn-default" [disabled]="!selected"
-                (click)="bringToFront();"><i class="fa fa-level-up" aria-hidden="true"></i></button>
-              <button data-toggle="tooltip" data-placement="bottom" title="Duplicar" type="button" class="btn btn-default" [disabled]="!selected || selected.type == 'group'"
-                (click)="clone();"><i class="fa fa-clone" aria-hidden="true"></i></button>
-              <button data-toggle="tooltip" data-placement="bottom" title="Deselecionar" type="button" class="btn btn-default" [disabled]="!selected"
-                (click)="cleanSelect()"><i class="fa fa-remove" aria-hidden="true"></i></button>
-            </div>
-          </div>
-        </div>
-
-    <div class="panel panel-default">
+     <div class="panel panel-default" [hidden]="true">
       <div class="panel-heading">Inserir Texto</div>
       <div class="panel-body">
         <div class="input-group">
           <input type="text" class="form-control" [(ngModel)]="textString" />
           <span class="input-group-btn">
-            <button id="add-text" data-toggle="tooltip" data-placement="bottom" title="Add text" class="btn btn-default" title="Add text" (click)="addText()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            <button id="add-text" data-toggle="tooltip" data-placement="bottom" title="Add text" class="btn btn-default" title="Add text"
+              (click)="addText()">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
           </span>
         </div>
       </div>
@@ -54,25 +58,7 @@
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/zubat.svg">
       </div>
     </div>
+ 
 
-    
-
-  </div>
-
-  <div class="col-lg-6">
-    <canvas id="canvas"></canvas>
-    <br/>
-    <div class="row" >
-        <div class="text-right">
-          <button data-toggle="tooltip" data-placement="bottom" title="Share" type="button" class="btn btn-default" (click)="compartilhar();"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Salvar" download="Brasilcap.png" type="button" class="btn btn-default" (click)="salvarImagem();"><i class="fa fa-download" aria-hidden="true"></i> Salvar</button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Limpar" type="button" class="btn btn-default" (click)="limpar();"><i class="fa fa-ban" aria-hidden="true"></i> Limpar</button>
-        </div>
-      </div>
-  </div>
-
-  
 </div>
-
-<br/>
-<br/>
+ 

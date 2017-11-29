@@ -487,6 +487,7 @@ export class EditorComponent implements OnInit {
     if (activeObject) {
       this.canvas.remove(activeObject);
       // this.textString = '';
+      this.addText();
     }
     else if (activeGroup) {
       let objectsInGroup = activeGroup.getObjects();
