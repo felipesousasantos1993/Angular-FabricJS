@@ -180,6 +180,12 @@ textarea {
 optgroup {
   font-weight: bold;
 }
+
+.buttons {
+      background-color: #044D87;
+    height: 65px;
+    padding: 15px;
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -1604,7 +1610,8 @@ th {
     margin-right: auto;
     margin-left: auto;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 15px;    
+    background-color: #FBE82F;
   }
   .row {
     margin-left: -15px;
@@ -3981,7 +3988,7 @@ th {
   .nav > li > a {
     position: relative;
     display: block;
-    padding: 10px 15px;
+    padding: 0px 15px;
   }
   .nav > li > a:hover,
   .nav > li > a:focus {
@@ -4322,8 +4329,7 @@ th {
     margin: 10.25px -15px;
   }
   .navbar-nav > li > a {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    
     line-height: 23px;
   }
   @media (max-width: 767px) {
@@ -4358,8 +4364,7 @@ th {
       float: left;
     }
     .navbar-nav > li > a {
-      padding-top: 20.5px;
-      padding-bottom: 20.5px;
+      
     }
   }
   .navbar-form {

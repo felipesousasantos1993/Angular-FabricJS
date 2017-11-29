@@ -1,23 +1,26 @@
-<div class="row">
-  <div class="col-lg-12">
-    <h4>Brasilcap Ano dos Sonhos</h4>
-  </div>
-  <div class="col-lg-12">
-    <div class="row">
-      <div class="col-lg-12 text-right">
-        <button data-toggle="tooltip" data-placement="bottom" title="Compartilhar" type="button" class="btn btn-default" (click)="compartilhar();"><i class="fa fa-share" aria-hidden="true"></i> Share On</button>
-        <button data-toggle="tooltip" data-placement="bottom" title="Salvar" type="button" class="btn btn-default" (click)="salvarImagem();"><i class="fa fa-download" aria-hidden="true"></i> Salvar</button>
-        <button data-toggle="tooltip" data-placement="bottom" title="Limpar" type="button" class="btn btn-default" (click)="limpar();"><i class="fa fa-ban" aria-hidden="true"></i> Limpar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<hr/>
+ <hr/>
 <div class="row">
   <div class="col-lg-3">
+      <div class="panel panel-default">
+          <div class="panel-heading">Opções</div>
+          <div class="panel-body text-center">
+            <div class="btn-group" role="group" aria-label="...">
+              <button data-toggle="tooltip" data-placement="bottom" title="Deletar Elemento" type="button" class="btn btn-danger" [disabled]="!selected"
+                (click)="removeSelected();"><i class="fa fa-trash" aria-hidden="true"></i></button>
+              <button data-toggle="tooltip" data-placement="bottom" title="Enviar pra trás" type="button" class="btn btn-default" [disabled]="!selected"
+                (click)="sendToBack();"><i class="fa fa-level-down" aria-hidden="true"></i></button>
+              <button data-toggle="tooltip" data-placement="bottom" title="Enviar pra frente" type="button" class="btn btn-default" [disabled]="!selected"
+                (click)="bringToFront();"><i class="fa fa-level-up" aria-hidden="true"></i></button>
+              <button data-toggle="tooltip" data-placement="bottom" title="Duplicar" type="button" class="btn btn-default" [disabled]="!selected || selected.type == 'group'"
+                (click)="clone();"><i class="fa fa-clone" aria-hidden="true"></i></button>
+              <button data-toggle="tooltip" data-placement="bottom" title="Deselecionar" type="button" class="btn btn-default" [disabled]="!selected"
+                (click)="cleanSelect()"><i class="fa fa-remove" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading">Add text</div>
+      <div class="panel-heading">Inserir Texto</div>
       <div class="panel-body">
         <div class="input-group">
           <input type="text" class="form-control" [(ngModel)]="textString" />
@@ -29,7 +32,7 @@
     </div>
 
     <div class="panel panel-default">
-      <div class="panel-heading">Add images</div>
+      <div class="panel-heading">Adicionar Imagem</div>
       <div class="panel-body max-height">
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/brasilcap.svg">
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/pikachu.svg">
@@ -52,33 +55,23 @@
       </div>
     </div>
 
+    
+
   </div>
 
   <div class="col-lg-6">
     <canvas id="canvas"></canvas>
-  </div>
-
-  <div class="col-lg-3">
-
-    <div class="panel panel-default">
-      <div class="panel-heading">Options</div>
-      <div class="panel-body text-center">
-        <div class="btn-group" role="group" aria-label="...">
-          <button data-toggle="tooltip" data-placement="bottom" title="Delete element" type="button" class="btn btn-danger" [disabled]="!selected"
-            (click)="removeSelected();"><i class="fa fa-trash" aria-hidden="true"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Send to back" type="button" class="btn btn-default" [disabled]="!selected"
-            (click)="sendToBack();"><i class="fa fa-level-down" aria-hidden="true"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Send to front" type="button" class="btn btn-default" [disabled]="!selected"
-            (click)="bringToFront();"><i class="fa fa-level-up" aria-hidden="true"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Clone" type="button" class="btn btn-default" [disabled]="!selected || selected.type == 'group'"
-            (click)="clone();"><i class="fa fa-clone" aria-hidden="true"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Unselect" type="button" class="btn btn-default" [disabled]="!selected"
-            (click)="cleanSelect()"><i class="fa fa-remove" aria-hidden="true"></i></button>
+    <br/>
+    <div class="row" >
+        <div class="text-right">
+          <button data-toggle="tooltip" data-placement="bottom" title="Compartilhar" type="button" class="btn btn-default" (click)="compartilhar();"><i class="fa fa-share" aria-hidden="true"></i> Share On</button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Salvar" type="button" class="btn btn-default" (click)="salvarImagem();"><i class="fa fa-download" aria-hidden="true"></i> Salvar</button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Limpar" type="button" class="btn btn-default" (click)="limpar();"><i class="fa fa-ban" aria-hidden="true"></i> Limpar</button>
         </div>
       </div>
-    </div>
-
   </div>
+
+  
 </div>
 
 <br/>

@@ -32,8 +32,8 @@ export class EditorComponent implements OnInit {
   private textString: string;
   private url: string = '';
   private size: any = {
-    width: 500,
-    height: 500
+    width: 600,
+    height: 322
   };
 
   private json: any;
