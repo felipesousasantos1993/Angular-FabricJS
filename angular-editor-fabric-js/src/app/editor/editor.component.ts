@@ -3,6 +3,7 @@ import {ColorPickerService} from 'angular2-color-picker';
 
 import 'fabric';
 declare const fabric: any;
+declare const $: any;
 
 @Component({
   selector: 'app-editor',
@@ -42,6 +43,8 @@ export class EditorComponent implements OnInit {
   private imageEditor: boolean = false;
   private figureEditor: boolean = false;
   private selected: any;
+
+  public href;
 
   constructor(private cpService: ColorPickerService) { }
 
@@ -106,6 +109,16 @@ export class EditorComponent implements OnInit {
     this.canvas.setHeight(this.size.height);
 
 
+    this.inserirPlanoDeFundoBrasilcap();
+
+    this.props.fontFamily = 'Raleway';
+ 
+    this.addText();
+  }
+
+  /*------------------------Block elements------------------------*/
+
+  inserirPlanoDeFundoBrasilcap() {
     let self = this;
     this.props.canvasImage = '/src/assets/img/brasilcap.svg';
     if (this.props.canvasImage) {
@@ -114,17 +127,7 @@ export class EditorComponent implements OnInit {
         self.canvas.renderAll();
       });
     }
-
-    // get references to the html canvas element & its context
-    // this.canvas.on('mouse:down', (e) => {
-    // let canvasElement: any = document.getElementById('canvas');
-    // console.log(canvasElement)
-    // });
-    this.addText();
   }
-
-  /*------------------------Block elements------------------------*/
-
   //Block "Size"
 
   changeSize(event: any) {
@@ -137,18 +140,18 @@ export class EditorComponent implements OnInit {
   addText() {
     let textString;
     if (textString == null || textString == undefined) {
-      textString = 'Input your text here ....'
+      textString = 'Insira seu texto aqui '
     } else {
       textString = this.textString;
     }
     let text = new fabric.IText(textString, {
       left: 10,
       top: 10,
-      fontFamily: 'helvetica',
+      fontFamily: 'Raleway',
       angle: 0,
-      fill: '#000000',
-      scaleX: 0.5,
-      scaleY: 0.5,
+      fill: '#00f',
+      scaleX: 1,
+      scaleY: 1,
       fontWeight: '',
       hasRotatingPoint: true
     });
@@ -487,14 +490,16 @@ export class EditorComponent implements OnInit {
     if (activeObject) {
       this.canvas.remove(activeObject);
       // this.textString = '';
-      this.addText();
+      if (activeObject.text) {
+        this.addText();
+      }
     }
     else if (activeGroup) {
       let objectsInGroup = activeGroup.getObjects();
       this.canvas.discardActiveGroup();
       let self = this;
       objectsInGroup.forEach(function(object) {
-        self.canvas.remove(object);
+        self.canvas.remove(object); 
       });
     }
   }
@@ -533,10 +538,14 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  confirmClear() {
-    if (confirm('Are you sure?')) {
-      this.canvas.clear();
-    }
+  limpar() {
+     this.canvas.clear();
+     this.inserirPlanoDeFundoBrasilcap();
+     this.addText();
+  }
+
+  share() {     
+       
   }
 
   salvarImagem() {
@@ -544,9 +553,13 @@ export class EditorComponent implements OnInit {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     }
     else {  
-      var url = this.canvas.toDataURL('png');
-      url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
-      window.open(url);
+      var url = this.canvas.toDataURL('image/jpeg', 1.0);
+      url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');   
+      this.href = url;
+      setTimeout(function(){  
+        ocument.getElementById('download').click(); 
+      }, 3000);
+    
     }
   }
 
