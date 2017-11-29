@@ -177,8 +177,8 @@ export class EditorComponent implements OnInit {
         hasRotatingPoint: true,
         peloas: 12
       });
-      image.setWidth(150);
-      image.setHeight(150);
+      image.setWidth(50);
+      image.setHeight(50);
       this.extend(image, this.randomId());
       this.canvas.add(image);
       this.selectItemAfterAdded(image);
