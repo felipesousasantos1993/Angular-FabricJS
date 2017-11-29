@@ -111,7 +111,6 @@ export class EditorComponent implements OnInit {
 
     this.inserirPlanoDeFundoBrasilcap();
 
-    this.props.fontFamily = 'Raleway';
  
     this.addText();
   }
@@ -145,15 +144,18 @@ export class EditorComponent implements OnInit {
       textString = this.textString;
     }
     let text = new fabric.IText(textString, {
-      left: 10,
-      top: 10,
+      left: 50,
+      top: 50,
       fontFamily: 'Raleway',
       angle: 0,
-      fill: '#00f',
+      fill: '#005b9b',
       scaleX: 1,
       scaleY: 1,
       fontWeight: '',
-      hasRotatingPoint: true
+      hasRotatingPoint: false,
+      hasControls: false,
+      lockMovementY: true,
+      lockMovementX: true
     });
     this.extend(text, this.randomId());
     this.canvas.add(text);
@@ -556,10 +558,7 @@ export class EditorComponent implements OnInit {
       var url = this.canvas.toDataURL('image/jpeg', 1.0);
       url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');   
       this.href = url;
-      setTimeout(function(){  
-        ocument.getElementById('download').click(); 
-      }, 3000);
-    
+      window.open(url);    
     }
   }
 
