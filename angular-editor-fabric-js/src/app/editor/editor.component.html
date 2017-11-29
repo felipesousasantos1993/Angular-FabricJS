@@ -43,7 +43,6 @@
     <div class="panel panel-default">
       <div class="panel-heading">Adicionar Imagem</div>
       <div class="panel-body max-height">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/brasilcap.svg">
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/pikachu.svg">
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/squirtle.svg">
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/bullbasaur.svg">
@@ -64,15 +63,6 @@
       </div>
     </div>
 
-    <div class="custom-item" *ngIf="selected && textEditor">
-        <div class="custom-item-title">Fonte</div>
-        <div class="custom-item-body">
-          <select [(ngModel)]="props.fontFamily" class="form-control" (change)="setFontFamily()">
-            <option value="Raleway">Raleway</option>
-            <option value="Archivo Black">Archivo</option>            
-          </select>
-        </div>
-      </div>
     </div>
     
     <a id="download" (href)="href" download="teste.png"></a>
