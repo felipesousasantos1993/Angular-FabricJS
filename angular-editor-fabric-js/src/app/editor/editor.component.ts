@@ -106,6 +106,16 @@ export class EditorComponent implements OnInit {
     this.canvas.setHeight(this.size.height);
 
 
+    this.inserirPlanoDeFundoBrasilcap();
+
+    this.props.fontFamily = 'Ubuntu-Regular';
+ 
+    this.addText();
+  }
+
+  /*------------------------Block elements------------------------*/
+
+  inserirPlanoDeFundoBrasilcap() {
     let self = this;
     this.props.canvasImage = '/src/assets/img/brasilcap.svg';
     if (this.props.canvasImage) {
@@ -114,17 +124,7 @@ export class EditorComponent implements OnInit {
         self.canvas.renderAll();
       });
     }
-
-    // get references to the html canvas element & its context
-    // this.canvas.on('mouse:down', (e) => {
-    // let canvasElement: any = document.getElementById('canvas');
-    // console.log(canvasElement)
-    // });
-    this.addText();
   }
-
-  /*------------------------Block elements------------------------*/
-
   //Block "Size"
 
   changeSize(event: any) {
@@ -532,19 +532,23 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  confirmClear() {
-    if (confirm('Are you sure?')) {
-      this.canvas.clear();
-    }
+  limpar() {
+     this.canvas.clear();
+     this.inserirPlanoDeFundoBrasilcap();
   }
 
-  rasterize() {
+  share() {     
+       
+  }
+
+  salvarImagem() {
     if (!fabric.Canvas.supports('toDataURL')) {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     }
     else {  
       var url = this.canvas.toDataURL('png');
       url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
+      console.log(url);
       window.open(url);
     }
   }
