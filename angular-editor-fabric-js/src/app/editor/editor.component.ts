@@ -120,7 +120,7 @@ export class EditorComponent implements OnInit {
     // let canvasElement: any = document.getElementById('canvas');
     // console.log(canvasElement)
     // });
-
+    this.addText();
   }
 
   /*------------------------Block elements------------------------*/
@@ -135,7 +135,12 @@ export class EditorComponent implements OnInit {
   //Block "Add text"
 
   addText() {
-    let textString = this.textString;
+    let textString;
+    if (textString == null || textString == undefined) {
+      textString = 'Input your text here ....'
+    } else {
+      textString = this.textString;
+    }
     let text = new fabric.IText(textString, {
       left: 10,
       top: 10,
