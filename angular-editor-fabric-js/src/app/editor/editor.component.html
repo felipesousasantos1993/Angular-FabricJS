@@ -5,11 +5,9 @@
   <div class="col-lg-12">
     <div class="row">
       <div class="col-lg-12 text-right">
-        <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-default" (click)="rasterize();"><i class="fa fa-download" aria-hidden="true"></i> image</button>
-        <button data-toggle="tooltip" data-placement="bottom" title="Export to SVG" type="button" class="btn btn-default" (click)="rasterizeSVG();"><i class="fa fa-download" aria-hidden="true"></i> SVG</button>
-        <button data-toggle="tooltip" data-placement="bottom" title="Save in localStorage" type="button" class="btn btn-default" (click)="saveCanvasToJSON();"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
-        <button data-toggle="tooltip" data-placement="bottom" title="Load from localStorage" type="button" class="btn btn-default" (click)="loadCanvasFromJSON();"><i class="fa fa-save" aria-hidden="true"></i> Load</button>
-        <button data-toggle="tooltip" data-placement="bottom" title="Clean Canvas" type="button" class="btn btn-default" (click)="confirmClear();"><i class="fa fa-ban" aria-hidden="true"></i> Clean</button>
+        <button data-toggle="tooltip" data-placement="bottom" title="Compartilhar" type="button" class="btn btn-default" (click)="rasterize();"><i class="fa fa-share" aria-hidden="true"></i> Share On</button>
+        <button data-toggle="tooltip" data-placement="bottom" title="Salvar" type="button" class="btn btn-default" (click)="rasterize();"><i class="fa fa-download" aria-hidden="true"></i> Salvar</button>
+        <button data-toggle="tooltip" data-placement="bottom" title="Limpar" type="button" class="btn btn-default" (click)="confirmClear();"><i class="fa fa-ban" aria-hidden="true"></i> Limpar</button>
       </div>
     </div>
   </div>
@@ -51,7 +49,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Add images</div>
       <div class="panel-body max-height">
-          <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/brasilcap.svg">
+        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/brasilcap.svg">
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/pikachu.svg">
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/squirtle.svg">
         <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/bullbasaur.svg">
@@ -111,11 +109,16 @@
       <div class="panel-heading">Options</div>
       <div class="panel-body text-center">
         <div class="btn-group" role="group" aria-label="...">
-          <button data-toggle="tooltip" data-placement="bottom" title="Delete element" type="button" class="btn btn-danger" [disabled]="!selected" (click)="removeSelected();"><i class="fa fa-trash" aria-hidden="true"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Send to back" type="button" class="btn btn-default" [disabled]="!selected" (click)="sendToBack();"><i class="fa fa-level-down" aria-hidden="true"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Send to front" type="button" class="btn btn-default" [disabled]="!selected" (click)="bringToFront();"><i class="fa fa-level-up" aria-hidden="true"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Clone" type="button" class="btn btn-default" [disabled]="!selected || selected.type == 'group'" (click)="clone();"><i class="fa fa-clone" aria-hidden="true"></i></button>
-          <button data-toggle="tooltip" data-placement="bottom" title="Unselect" type="button" class="btn btn-default" [disabled]="!selected" (click)="cleanSelect()"><i class="fa fa-remove" aria-hidden="true"></i></button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Delete element" type="button" class="btn btn-danger" [disabled]="!selected"
+            (click)="removeSelected();"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Send to back" type="button" class="btn btn-default" [disabled]="!selected"
+            (click)="sendToBack();"><i class="fa fa-level-down" aria-hidden="true"></i></button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Send to front" type="button" class="btn btn-default" [disabled]="!selected"
+            (click)="bringToFront();"><i class="fa fa-level-up" aria-hidden="true"></i></button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Clone" type="button" class="btn btn-default" [disabled]="!selected || selected.type == 'group'"
+            (click)="clone();"><i class="fa fa-clone" aria-hidden="true"></i></button>
+          <button data-toggle="tooltip" data-placement="bottom" title="Unselect" type="button" class="btn btn-default" [disabled]="!selected"
+            (click)="cleanSelect()"><i class="fa fa-remove" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>
@@ -126,13 +129,15 @@
         <div class="custom-item" *ngIf="!props.canvasImage">
           <div class="custom-item-title">Background Color</div>
           <div class="custom-item-body">
-            <input type="text" class="form-control" [cpPosition]="'bottom'" [(colorPicker)]="props.canvasFill" [style.background]="props.canvasFill" [value]="props.canvasFill" (colorPickerChange)="setCanvasFill()" />
+            <input type="text" class="form-control" [cpPosition]="'bottom'" [(colorPicker)]="props.canvasFill" [style.background]="props.canvasFill"
+              [value]="props.canvasFill" (colorPickerChange)="setCanvasFill()" />
           </div>
         </div>
         <div class="custom-item">
           <div class="custom-item-title">Background Image (url)</div>
           <div class="custom-item-body">
-            <input type="text" class="form-control" placeholder="http://example.jpg" [(ngModel)]="props.canvasImage" (keyup)="setCanvasImage()" />
+            <input type="text" class="form-control" placeholder="http://example.jpg" [(ngModel)]="props.canvasImage" (keyup)="setCanvasImage()"
+            />
           </div>
         </div>
       </div>
@@ -167,7 +172,8 @@
         <div class="custom-item" *ngIf="selected && textEditor || selected && figureEditor">
           <div class="custom-item-title">Fill</div>
           <div class="custom-item-body">
-            <input type="text" class="form-control" [cpPosition]="'bottom'" [(colorPicker)]="props.fill" [style.background]="props.fill" [value]="props.fill" (colorPickerChange)="setFill()" />
+            <input type="text" class="form-control" [cpPosition]="'bottom'" [(colorPicker)]="props.fill" [style.background]="props.fill"
+              [value]="props.fill" (colorPickerChange)="setFill()" />
           </div>
         </div>
 
@@ -249,14 +255,14 @@
         <div class="custom-item" *ngIf="selected && textEditor">
           <div class="custom-item-title">Line Height</div>
           <div class="custom-item-body">
-            <input type="range" [(ngModel)]="props.lineHeight" (change)="setLineHeight()" step="0.1" min="0" max="10" /> {{props.lineHeight}}
+            <input type="range" [(ngModel)]="props.lineHeight" (change)="setLineHeight()" step="0.1" min="0" max="10" />            {{props.lineHeight}}
           </div>
         </div>
 
         <div class="custom-item" *ngIf="selected && textEditor">
           <div class="custom-item-title">Char Spacing</div>
           <div class="custom-item-body">
-            <input type="range" [(ngModel)]="props.charSpacing" (change)="setCharSpacing()" step="10" min="-200" max="800" /> {{props.charSpacing}}
+            <input type="range" [(ngModel)]="props.charSpacing" (change)="setCharSpacing()" step="10" min="-200" max="800" />            {{props.charSpacing}}
           </div>
         </div>
 

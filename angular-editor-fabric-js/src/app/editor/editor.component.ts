@@ -33,7 +33,7 @@ export class EditorComponent implements OnInit {
   private url: string = '';
   private size: any = {
     width: 500,
-    height: 800
+    height: 500
   };
 
   private json: any;
@@ -105,8 +105,9 @@ export class EditorComponent implements OnInit {
     this.canvas.setWidth(this.size.width);
     this.canvas.setHeight(this.size.height);
 
+
     let self = this;
-    this.props.canvasImage = 'http://www.grito.cc/site/images/img_video_brasilcap_institucional_01.jpg';
+    this.props.canvasImage = '/src/assets/img/brasilcap.svg';
     if (this.props.canvasImage) {
       this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function() {
         // self.props.canvasFill = '';
@@ -536,17 +537,18 @@ export class EditorComponent implements OnInit {
     if (!fabric.Canvas.supports('toDataURL')) {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     }
-    else {
-      var url = this.canvas.toDataURL('image/png');
+    else {  
+      var url = this.canvas.toDataURL('png');
       url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
       window.open(url);
     }
   }
 
   rasterizeSVG() {
+    var urlCanvas = this.canvas.toSVG();
     window.open(
-      'data:image/svg+xml;utf8,' +
-      encodeURIComponent(this.canvas.toSVG()));
+      'data:application/octet-stream' +
+      encodeURIComponent(urlCanvas));
   };
 
 
