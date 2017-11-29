@@ -105,7 +105,10 @@ export class EditorComponent implements OnInit {
     this.canvas.setWidth(this.size.width);
     this.canvas.setHeight(this.size.height);
 
+
     this.inserirSVGFundos();
+
+
   }
 
   /*------------------------Block elements------------------------*/
@@ -207,6 +210,39 @@ export class EditorComponent implements OnInit {
   };
 
   //Block "Add figure"
+
+  addFigure(figure) {
+    let add: any;
+    switch (figure) {
+      case 'rectangle':
+        add = new fabric.Rect({
+          width: 200, height: 100, left: 10, top: 10, angle: 0,
+          fill: '#3f51b5'
+        });
+        break;
+      case 'square':
+        add = new fabric.Rect({
+          width: 100, height: 100, left: 10, top: 10, angle: 0,
+          fill: '#4caf50'
+        });
+        break;
+      case 'triangle':
+        add = new fabric.Triangle({
+          width: 100, height: 100, left: 10, top: 10, fill: '#2196f3'
+        });
+        break;
+      case 'circle':
+        add = new fabric.Circle({
+          radius: 50, left: 10, top: 10, fill: '#ff5722'
+        });
+        break;
+    }
+    this.extend(add, this.randomId());
+    this.canvas.add(add);
+    this.selectItemAfterAdded(add);
+  }
+
+  /*Canvas*/
 
   cleanSelect() {
     this.canvas.deactivateAllWithDispatch().renderAll();
@@ -451,6 +487,40 @@ export class EditorComponent implements OnInit {
       let self = this;
       objectsInGroup.forEach(function (object) {
         self.canvas.remove(object);
+      });
+    }
+  }
+
+  bringToFront() {
+    let activeObject = this.canvas.getActiveObject(),
+      activeGroup = this.canvas.getActiveGroup();
+
+    if (activeObject) {
+      activeObject.bringToFront();
+      // activeObject.opacity = 1;
+    }
+    else if (activeGroup) {
+      let objectsInGroup = activeGroup.getObjects();
+      this.canvas.discardActiveGroup();
+      objectsInGroup.forEach((object) => {
+        object.bringToFront();
+      });
+    }
+  }
+
+  sendToBack() {
+    let activeObject = this.canvas.getActiveObject(),
+      activeGroup = this.canvas.getActiveGroup();
+
+    if (activeObject) {
+      activeObject.sendToBack();
+      // activeObject.opacity = 1;
+    }
+    else if (activeGroup) {
+      let objectsInGroup = activeGroup.getObjects();
+      this.canvas.discardActiveGroup();
+      objectsInGroup.forEach((object) => {
+        object.sendToBack();
       });
     }
   }
