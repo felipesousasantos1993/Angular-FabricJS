@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ColorPickerService } from 'angular2-color-picker';
+import {ColorPickerService} from 'angular2-color-picker';
 
 import 'fabric';
 declare const fabric: any;
@@ -106,22 +106,24 @@ export class EditorComponent implements OnInit {
     this.canvas.setHeight(this.size.height);
 
 
-    this.inserirSVGFundos();
-
-
-  }
-
-  /*------------------------Block elements------------------------*/
-
-  inserirSVGFundos() {
     let self = this;
     this.props.canvasImage = '/src/assets/img/brasilcap.svg';
     if (this.props.canvasImage) {
-      this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function () {
+      this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function() {
+        // self.props.canvasFill = '';
         self.canvas.renderAll();
       });
     }
+
+    // get references to the html canvas element & its context
+    // this.canvas.on('mouse:down', (e) => {
+    // let canvasElement: any = document.getElementById('canvas');
+    // console.log(canvasElement)
+    // });
+    this.addText();
   }
+
+  /*------------------------Block elements------------------------*/
 
   //Block "Size"
 
@@ -133,7 +135,12 @@ export class EditorComponent implements OnInit {
   //Block "Add text"
 
   addText() {
-    let textString = this.textString;
+    let textString;
+    if (textString == null || textString == undefined) {
+      textString = 'Input your text here ....'
+    } else {
+      textString = this.textString;
+    }
     let text = new fabric.IText(textString, {
       left: 10,
       top: 10,
@@ -261,8 +268,8 @@ export class EditorComponent implements OnInit {
   }
 
   extend(obj, id) {
-    obj.toObject = (function (toObject) {
-      return function () {
+    obj.toObject = (function(toObject) {
+      return function() {
         return fabric.util.object.extend(toObject.call(this), {
           id: id
         });
@@ -273,7 +280,7 @@ export class EditorComponent implements OnInit {
   setCanvasImage() {
     let self = this;
     if (this.props.canvasImage) {
-      this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function () {
+      this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function() {
         // self.props.canvasFill = '';
         self.canvas.renderAll();
       });
@@ -485,7 +492,7 @@ export class EditorComponent implements OnInit {
       let objectsInGroup = activeGroup.getObjects();
       this.canvas.discardActiveGroup();
       let self = this;
-      objectsInGroup.forEach(function (object) {
+      objectsInGroup.forEach(function(object) {
         self.canvas.remove(object);
       });
     }
@@ -525,24 +532,61 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  limpar() {
-    this.canvas.clear();
-    this.inserirSVGFundos();
+  confirmClear() {
+    if (confirm('Are you sure?')) {
+      this.canvas.clear();
+    }
   }
 
-  salvarImagem() {
+  rasterize() {
     if (!fabric.Canvas.supports('toDataURL')) {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     }
-    else {
+    else {  
       var url = this.canvas.toDataURL('png');
       url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
       window.open(url);
     }
   }
 
-  compartilhar() {
+  rasterizeSVG() {
+    var urlCanvas = this.canvas.toSVG();
+    window.open(
+      'data:application/octet-stream' +
+      encodeURIComponent(urlCanvas));
+  };
 
+
+  saveCanvasToJSON() {
+    let json = JSON.stringify(this.canvas);
+    localStorage.setItem('Kanvas', json);
+    console.log('json');
+    console.log(json);
+
+  }
+
+  loadCanvasFromJSON() {
+    let CANVAS = localStorage.getItem('Kanvas');
+    console.log('CANVAS');
+    console.log(CANVAS);
+
+    // and load everything from the same json
+    this.canvas.loadFromJSON(CANVAS, () => {
+      console.log('CANVAS untar');
+      console.log(CANVAS);
+
+      // making sure to render canvas at the end
+      this.canvas.renderAll();
+
+      // and checking if object's "name" is preserved
+      console.log('this.canvas.item(0).name');
+      console.log(this.canvas);
+    });
+
+  };
+
+  rasterizeJSON() {
+    this.json = JSON.stringify(this.canvas, null, 2);
   }
 
   resetPanels() {
