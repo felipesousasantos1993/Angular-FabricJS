@@ -209,9 +209,9 @@ img {
 
 .input-nome {
   width: 100%;
-  border: solid 2px #ffffff;
   border-radius: 4.1px;
-  background-color: transparent;
+  background-color: #001e33;
+  border: none;
   padding: 10px 15px;
   font-family: Raleway;
   color: rgba(255, 255, 255, 0.8);
@@ -233,4 +233,15 @@ img {
 :-moz-placeholder { /* Firefox 18- */
   color: rgba(255, 255, 255, 0.8);
   font-family: Raleway;
+}
+
+.btn-salvar {
+  border-radius: 4px;
+  background-color: transparent;
+  border: solid 1px #ffe900;
+  font-family: Raleway;
+  font-size: 18px;
+  text-align: center;
+  color: #ffe900;
+  padding: 5px 15px;
 }
