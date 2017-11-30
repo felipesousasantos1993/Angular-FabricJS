@@ -33,8 +33,8 @@ export class EditorComponent implements OnInit {
   private textString: string;
   private url: string = '';
   private size: any = {
-    width: 600,
-    height: 322
+    width: 574,
+    height: 430
   };
 
   private json: any;
@@ -151,7 +151,7 @@ export class EditorComponent implements OnInit {
       fill: '#005A9F',
       scaleX: 1,
       scaleY: 1,
-      fontWeight: '',
+      fontWeight: '900',
       hasRotatingPoint: false,
       hasControls: false,
       lockMovementY: true,

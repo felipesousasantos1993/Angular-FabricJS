@@ -1,84 +1,141 @@
-<hr/>
+<section style="background-color:#22f">
+  <div class="container">
 
-<div class="col-lg-8">
-  <canvas id="canvas"></canvas>
-  <br/>
-  <div class="row">
-    <div class="panel-heading">
-      
-      <button data-toggle="tooltip" data-placement="bottom" title="Salvar" type="button" class="btn btn-default" (click)="salvarImagem();">
-        <i class="fa fa-download" aria-hidden="true"></i> Salvar</button>
-      <button data-toggle="tooltip" data-placement="bottom" title="Limpar" type="button" class="btn btn-default" (click)="limpar();">
-        <i class="fa fa-ban" aria-hidden="true"></i> Limpar</button>
-      <button data-toggle="tooltip" data-placement="bottom" title="Deletar Elemento" type="button" class="btn btn-default" [disabled]="!selected"
-        (click)="removeSelected();">
-        <i class="fa fa-trash" aria-hidden="true"> </i>
-        Deletar
-      </button>
+    <div class="col-lg-5">
+      <span class="compartilhe">Compartilhe</span><span class="seu-ano"> seu ano!</span>
+      <br/>
+      <span class="palavras">/palavras</span> <span class="que-definem"> que definem</span>
+      <br/>
+      <span class="texto">Escolha até 5 palavras que definam como foi seu ano de 2017 aqui na Brasilcap.
+    <br/> Cria a sua imagem e compartilhe!
+    </span>
+      <br/>
+      <br/>
+      <br/>
+      <input placeholder="Quem é você?" class="input-nome">
+    </div>
+    <div class="col-lg-offset-1 col-lg-5">
+      <canvas id="canvas"></canvas>
+      <br/>
+
+
+      <a>
+          Faça o download
+          <i class="fa fa-download"  ></i>
+        </a>
+
+
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-lg-3">
-     <div class="panel panel-default" [hidden]="true">
-      <div class="panel-heading">Inserir Texto</div>
-      <div class="panel-body">
-        <div class="input-group">
-          <input type="text" class="form-control" [(ngModel)]="textString" />
-          <span class="input-group-btn">
-            <button id="add-text" data-toggle="tooltip" data-placement="bottom" title="Add text" class="btn btn-default" title="Add text"
-              (click)="addText()">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-          </span>
+</section>
+<section id="galeria">
+
+  <span class="titulo">GALERIA</span>
+  <div class="galeria-separator">
+    <span class="separator left"></span>
+    <i class="fa fa-camera-retro camera-galeria" aria-hidden="true"></i>
+    <span class="separator right"></span>
+  </div>
+  <div class="texto-galeria">
+    <div class="container">
+      Texto de teste texto de teste Texto de teste texto de teste Texto de teste texto de teste Texto de teste texto de teste Texto
+      de teste texto de teste Texto de teste texto de teste
+    </div>
+  </div>
+  <section class="p-0" id="portfolio">
+    <div class="container-fluid p-0">
+      <div class="row no-gutters popup-gallery">
+        <div class="col-lg-3 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
+              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
+              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
+              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
+              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
+              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
+              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                    Category
+                  </div>
+                  <div class="project-name">
+                    Project Name
+                  </div>
+                </div>
+              </div>
+            </a>
         </div>
       </div>
     </div>
-
-    
-
-    <div class="panel panel-default">
-      <div class="panel-heading">Adicionar Emoticon</div>
-      <div class="panel-body max-height">        
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/angry.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/angry-1.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/bored.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/bored-1.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/bored-2.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/confused.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/confused-1.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/crying.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/crying-1.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/embarrassed.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/emoticons.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/happy.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/happy-1.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/happy-2.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/happy-3.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/happy-4.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/ill.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/in-love.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/kissing.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/mad.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/nerd.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/ninja.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/quiet.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/sad.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/secret.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/smart.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/smile.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/smiling.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/surprised.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/surprised-1.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/suspicious.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/suspicious-1.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/tongue-out.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/tongue-out-1.svg">
-        <img class="images-item" (click)="getImgPolaroid($event)" src="assets/img/wink.svg">
-      </div>
-    </div>
-
-     
-
-</div>
- 
+  </section>
+</section>

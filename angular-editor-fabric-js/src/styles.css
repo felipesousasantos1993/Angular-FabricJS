@@ -1611,7 +1611,7 @@ th {
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;    
-    background: linear-gradient(to bottom right,#FBE82F, #FBE82F, #FFD403, #FFD302);
+    background-color: #ffe900;
   }
   .row {
     margin-left: -15px;
@@ -6754,9 +6754,7 @@ th {
     }
   }
   .navbar {
-    border: none;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    border: none;    
   }
   .navbar-brand {
     font-size: 24px;
