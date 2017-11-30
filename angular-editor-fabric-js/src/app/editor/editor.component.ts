@@ -119,7 +119,7 @@ export class EditorComponent implements OnInit {
 
   inserirPlanoDeFundoBrasilcap() {
     let self = this;
-    this.props.canvasImage = '/src/assets/img/brasilcap.svg';
+    this.props.canvasImage = '/assets/img/brasilcap.svg';
     if (this.props.canvasImage) {
       this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function() {
         // self.props.canvasFill = '';
