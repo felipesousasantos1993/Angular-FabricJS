@@ -1,5 +1,5 @@
 #canvas {
-  border: 1px dashed #cccccc;
+  box-shadow: 8px 8px 8px #333;
 }
 
 .images-item {
@@ -80,7 +80,7 @@
   font-family: Raleway;
   font-size: 16px;
   text-align: left;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.9);  
 }
 
 section > span.titulo {
@@ -136,7 +136,7 @@ section > span.titulo {
   line-height: 1.33;
   text-align: center;
   color: rgba(6, 32, 51, 0.8);
-  margin-top: 40px
+  margin: 50px 0px;
 }
 
 .galeria {
@@ -209,14 +209,15 @@ img {
 
 .input-nome {
   width: 100%;
-  border-radius: 4.1px;
+  border-radius: 4px;
   background-color: #001e33;
   border: none;
   padding: 10px 15px;
   font-family: Raleway;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255,1);
   font-size: 14px;
   font-weight: 500;
+  margin-top: 60px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: rgba(255, 255, 255, 0.8);
@@ -238,10 +239,194 @@ img {
 .btn-salvar {
   border-radius: 4px;
   background-color: transparent;
-  border: solid 1px #ffe900;
+  border: solid 2px #ffe900;
   font-family: Raleway;
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
   color: #ffe900;
+  padding: 7px 30px;
+  margin-top: 40px;
+  letter-spacing: 3px;
+}
+
+.btn-salvar:hover { 
+  background-color: #ffe900;
+   color: #333;  
+}
+
+#top-section {
+  width: 100%;
+  height: 100%;
+  padding:80px 0px 50px !important;
+  margin: 0;
+  padding: 0;
+  background: url('/assets/img/bg-banner.jpg');
+}
+
+#btn-download {
+  float: right;
+  font-family: Raleway;
+  font-size: 16px;
+  color: #ffffff;
+  position: relative;
+  left: 33px;
+  top: -15px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navbar {
+  margin-bottom: 0px !important;
+}
+
+.first {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item-foto {
+  padding: 0px;
+}
+
+#btn-ver-todos {
+  display: table;
+  margin: 60px auto;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: solid 2px #005aa1;
+  font-family: Raleway;
+  font-size: 20px;
+  text-align: center;
+  color: #005b9b;
   padding: 5px 15px;
+  margin-top: 40px;
+  min-width: 280px;
+  font-weight: 900;
+  transition-duration: 1s;
+  transition: opacity 0.5s;
+  transition-timing-function: linear; 
+}
+
+#btn-ver-todos:hover {  
+  background-color: #005b9b;
+  border: solid 2px #005aa1;
+  color: #fff;
+  
+}
+
+#btn-ver-todos[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.no-padding {
+  padding: 0px;
+  margin: 0px;
+}
+
+.img-foto {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #3C668A;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+  opacity: 0.95;
+}
+
+.text {
+  white-space: nowrap; 
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  font-family: Raleway;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  margin-top: 20px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+footer {
+  height: 60px;
+  background-color: #eaeef1;
+  line-height: 60px;
+  font-family: Raleway;
+  font-size:14px;
+  color: #000;
+  letter-spacing: 1.4px;
+}
+
+.circle {
+  position: relative;
+  margin: 0 auto;
+  color: #fff;
+  display: table;
+  top: 70px;
+  border: 1px solid #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 100px;
+}
+
+.icon-eye {
+  position: relative;
+  top: 6px;
+  left: 9px;
+}
+
+#botaoVerTodos {
+  min-height: 300px;
+}
+
+@media screen and (max-width: 768px) {
+  .overflow {
+    overflow: auto;
+    width:100%;
+  }
+  .btn-salvar {
+    margin-bottom: 35px;
+    width: 100%;
+  }
+  #btn-download {
+    left: 0px;
+  }
+  .compartilhe {
+    font-size: 34px;
+  }
+  .seu-ano {
+    font-size: 33px;
+  }
+  .palavras {
+    font-size: 28px;
+  }
+  .que-definem {
+    font-size: 28px;
+  }
+  #btn-ver-todos {
+    width: 100%;
+  }
+  footer {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  footer {
+    font-size: 10px;
+  }
 }

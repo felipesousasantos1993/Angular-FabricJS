@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ColorPickerService} from 'angular2-color-picker';
+import { ColorPickerService } from 'angular2-color-picker';
+import { Http, Response, Headers } from '@angular/http';
+import 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { EditorService } from '../service/editor.component-service';
 
 import 'fabric';
 declare const fabric: any;
@@ -8,7 +13,8 @@ declare const $: any;
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+  styleUrls: ['./editor.component.css'],
+  providers: [EditorService]
 })
 
 export class EditorComponent implements OnInit {
@@ -30,6 +36,9 @@ export class EditorComponent implements OnInit {
     TextDecoration: ''
   };
 
+  public verTodos = false;
+  public loading = false;
+
   private textString: string;
   private url: string = '';
   private size: any = {
@@ -45,10 +54,29 @@ export class EditorComponent implements OnInit {
   private selected: any;
 
   public href;
+  public nome;
 
-  constructor(private cpService: ColorPickerService) { }
+  public listaFotos = [];
+  public listaFotosExibicao = [];
+
+  constructor(
+      private cpService: ColorPickerService, 
+      private http: Http,
+      private editorService: EditorService) { }
+
+  galeria: Observable<any[]>
 
   ngOnInit() {
+    this.galeria = this.editorService.getGaleriaObservable();
+    this.galeria.subscribe(
+      data => {
+        this.listaFotos = data
+        if (!this.verTodos) {
+          this.listaFotosExibicao = this.listaFotos.reverse().slice(0, 8);
+        }
+      },
+      error => console.log(<any>error));
+
 
     //setup front side canvas
     this.canvas = new fabric.Canvas('canvas', {
@@ -111,17 +139,36 @@ export class EditorComponent implements OnInit {
 
     this.inserirPlanoDeFundoBrasilcap();
 
- 
+
     this.addText();
+  }
+
+  getBooksWithObservable(): Observable<any[]> {
+    return this.http.get(this.url)
+      .map(this.extractData)
+      .catch(this.handleErrorObservable);
+  }
+
+  private extractData(res: Response) {
+    let body = res.json();
+    return body;
+  }
+  private handleErrorObservable(error: Response | any) {
+    console.error(error.message || error);
+    return Observable.throw(error.message || error);
+  }
+  private handleErrorPromise(error: Response | any) {
+    console.error(error.message || error);
+    return Promise.reject(error.message || error);
   }
 
   /*------------------------Block elements------------------------*/
 
   inserirPlanoDeFundoBrasilcap() {
     let self = this;
-    this.props.canvasImage = '/assets/img/brasilcap.svg';
+    this.props.canvasImage = '/assets/img/brasilcap-certo.svg';
     if (this.props.canvasImage) {
-      this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function() {
+      this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function () {
         // self.props.canvasFill = '';
         self.canvas.renderAll();
       });
@@ -162,64 +209,7 @@ export class EditorComponent implements OnInit {
     this.selectItemAfterAdded(text);
     this.textString = '';
   }
-
-  //Block "Add images"
-
-  getImgPolaroid(event: any) {
-    let el = event.target;
-    fabric.Image.fromURL(el.src, (image) => {
-      image.set({
-        left: 10,
-        top: 10,
-        angle: 0,
-        padding: 10,
-        cornersize: 10,
-        hasRotatingPoint: true,
-        peloas: 12
-      });
-      image.setWidth(50);
-      image.setHeight(50);
-      this.extend(image, this.randomId());
-      this.canvas.add(image);
-      this.selectItemAfterAdded(image);
-    });
-  }
-
-  //Block "Upload Image"
-
-  addImageOnCanvas(url) {
-    if (url) {
-      fabric.Image.fromURL(url, (image) => {
-        image.set({
-          left: 10,
-          top: 10,
-          angle: 0,
-          padding: 10,
-          cornersize: 10,
-          hasRotatingPoint: true
-        });
-        image.setWidth(200);
-        image.setHeight(200);
-        this.extend(image, this.randomId());
-        this.canvas.add(image);
-        this.selectItemAfterAdded(image);
-      });
-    }
-  }
-
-  readUrl(event) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (event) => {
-        this.url = event.target['result'];
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
-
-  removeWhite(url) {
-    this.url = '';
-  };
+ 
 
   //Block "Add figure"
 
@@ -253,43 +243,19 @@ export class EditorComponent implements OnInit {
     this.canvas.add(add);
     this.selectItemAfterAdded(add);
   }
-
-  /*Canvas*/
-
-  cleanSelect() {
-    this.canvas.deactivateAllWithDispatch().renderAll();
-  }
-
+ 
   selectItemAfterAdded(obj) {
     this.canvas.deactivateAllWithDispatch().renderAll();
     this.canvas.setActiveObject(obj);
   }
-
-  setCanvasFill() {
-    if (!this.props.canvasImage) {
-      this.canvas.backgroundColor = this.props.canvasFill;
-      this.canvas.renderAll();
-    }
-  }
-
   extend(obj, id) {
-    obj.toObject = (function(toObject) {
-      return function() {
+    obj.toObject = (function (toObject) {
+      return function () {
         return fabric.util.object.extend(toObject.call(this), {
           id: id
         });
       };
     })(obj.toObject);
-  }
-
-  setCanvasImage() {
-    let self = this;
-    if (this.props.canvasImage) {
-      this.canvas.setBackgroundColor({ source: this.props.canvasImage, repeat: 'repeat' }, function() {
-        // self.props.canvasFill = '';
-        self.canvas.renderAll();
-      });
-    }
   }
 
   randomId() {
@@ -341,36 +307,7 @@ export class EditorComponent implements OnInit {
     this.canvas.renderAll();
   }
 
-  clone() {
-    let activeObject = this.canvas.getActiveObject(),
-      activeGroup = this.canvas.getActiveGroup();
-
-    if (activeObject) {
-      let clone;
-      switch (activeObject.type) {
-        case 'rect':
-          clone = new fabric.Rect(activeObject.toObject());
-          break;
-        case 'circle':
-          clone = new fabric.Circle(activeObject.toObject());
-          break;
-        case 'triangle':
-          clone = new fabric.Triangle(activeObject.toObject());
-          break;
-        case 'i-text':
-          clone = new fabric.IText('', activeObject.toObject());
-          break;
-        case 'image':
-          clone = fabric.util.object.clone(activeObject);
-          break;
-      }
-      if (clone) {
-        clone.set({ left: 10, top: 10 });
-        this.canvas.add(clone);
-        this.selectItemAfterAdded(clone);
-      }
-    }
-  }
+   
 
   getId() {
     this.props.id = this.canvas.getActiveObject().toObject().id;
@@ -482,9 +419,6 @@ export class EditorComponent implements OnInit {
     this.setActiveProp('fontFamily', this.props.fontFamily);
   }
 
-  /*System*/
-
-
   removeSelected() {
     let activeObject = this.canvas.getActiveObject(),
       activeGroup = this.canvas.getActiveGroup();
@@ -500,118 +434,69 @@ export class EditorComponent implements OnInit {
       let objectsInGroup = activeGroup.getObjects();
       this.canvas.discardActiveGroup();
       let self = this;
-      objectsInGroup.forEach(function(object) {
-        self.canvas.remove(object); 
+      objectsInGroup.forEach(function (object) {
+        self.canvas.remove(object);
       });
     }
   }
 
-  bringToFront() {
-    let activeObject = this.canvas.getActiveObject(),
-      activeGroup = this.canvas.getActiveGroup();
-
-    if (activeObject) {
-      activeObject.bringToFront();
-      // activeObject.opacity = 1;
-    }
-    else if (activeGroup) {
-      let objectsInGroup = activeGroup.getObjects();
-      this.canvas.discardActiveGroup();
-      objectsInGroup.forEach((object) => {
-        object.bringToFront();
-      });
-    }
+  mousein(img) {
+    img.currentTarget.children[1].style.height = '100%'; 
   }
 
-  sendToBack() {
-    let activeObject = this.canvas.getActiveObject(),
-      activeGroup = this.canvas.getActiveGroup();
+  mouseout(img) { 
+    img.currentTarget.children[1].style.height = '0'; 
+  }
 
-    if (activeObject) {
-      activeObject.sendToBack();
-      // activeObject.opacity = 1;
-    }
-    else if (activeGroup) {
-      let objectsInGroup = activeGroup.getObjects();
-      this.canvas.discardActiveGroup();
-      objectsInGroup.forEach((object) => {
-        object.sendToBack();
-      });
+  salvarNaGaleria() {    
+    var url = this.canvas.toDataURL({ format: 'jpeg', quality: 1 });
+    var obj = { "nome": this.nome, "foto": url }
+
+    if (confirm('Confirma a inclusão na galeria?')) {
+      if (this.listaFotos == null) {
+        this.listaFotos = [];
+      }
+      this.editorService.incluirFoto(obj).subscribe(resp1 => {
+        if (resp1) {
+          console.log(resp1);
+          window.location.reload();
+        }
+      })
     }
   }
 
-  limpar() {
-     this.canvas.clear();
-     this.inserirPlanoDeFundoBrasilcap();
-     this.addText();
-  }
-
-  share() {     
-       
-  }
+   
 
   salvarImagem() {
     if (!fabric.Canvas.supports('toDataURL')) {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     }
-    else {  
-      var url = this.canvas.toDataURL({
-        format: 'jpeg',
-        quality: 1
-     });
-      url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');   
- 
+    else {
+      var url = this.canvas.toDataURL({ format: 'jpeg', quality: 1   });
+      url = url.replace(/^data:image\/[^;]+/, 'data:application/octet-stream');
+
       var uri = url;
-      
+
       var downloadLink = document.createElement("a");
       downloadLink.href = uri;
       downloadLink.download = "Brasilcap.png";
-      
+
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
- 
+
     }
   }
 
-  rasterizeSVG() {
-    var urlCanvas = this.canvas.toSVG();
-    window.open(
-      'data:application/octet-stream' +
-      encodeURIComponent(urlCanvas));
-  };
+  btnVerTodos() {
+    this.verTodos = true;
+    this.galeria = this.editorService.getGaleriaObservable();
+    this.galeria.subscribe(
+      data => {
+        this.listaFotosExibicao = data.reverse();
+      },
+      error => console.log(<any>error));
 
-
-  saveCanvasToJSON() {
-    let json = JSON.stringify(this.canvas);
-    localStorage.setItem('Kanvas', json);
-    console.log('json');
-    console.log(json);
-
-  }
-
-  loadCanvasFromJSON() {
-    let CANVAS = localStorage.getItem('Kanvas');
-    console.log('CANVAS');
-    console.log(CANVAS);
-
-    // and load everything from the same json
-    this.canvas.loadFromJSON(CANVAS, () => {
-      console.log('CANVAS untar');
-      console.log(CANVAS);
-
-      // making sure to render canvas at the end
-      this.canvas.renderAll();
-
-      // and checking if object's "name" is preserved
-      console.log('this.canvas.item(0).name');
-      console.log(this.canvas);
-    });
-
-  };
-
-  rasterizeJSON() {
-    this.json = JSON.stringify(this.canvas, null, 2);
   }
 
   resetPanels() {
@@ -619,5 +504,4 @@ export class EditorComponent implements OnInit {
     this.imageEditor = false;
     this.figureEditor = false;
   }
-
-}
+} 

@@ -1,4 +1,4 @@
-<section style="background-color:#22f">
+<section id="top-section">
   <div class="container">
 
     <div class="col-lg-5">
@@ -9,19 +9,20 @@
       <span class="texto">Escolha até 5 palavras que definam como foi seu ano de 2017 aqui na Brasilcap.
     <br/> Cria a sua imagem e compartilhe!
     </span>
-      <br/>
-      <br/>
-      <br/>
-      <input placeholder="Quem é você?" class="input-nome">
-      <br>
-      <button class="btn-salvar"> Salvar na galeria</button>
+      <form ngNativeValidate (ngSubmit)="salvarNaGaleria()">         
+        <input placeholder="Quem é você?" minlength="5" maxlength="55" [(ngModel)]="nome" name="nome" [required]="true" class="input-nome">
+        
+        <button class="btn-salvar" type="submit" > Salvar na galeria</button>
+      </form>
     </div>
-    <div class="col-lg-offset-1 col-lg-5">
-      <canvas id="canvas"></canvas>
+    <div class="col-lg-offset-1 col-lg-6">
+      <div class="overflow">
+        <canvas id="canvas"></canvas>
+      </div>
       <br/>
 
 
-      <a>
+      <a id="btn-download" (click)="salvarImagem()">
           Faça o download
           <i class="fa fa-download"  ></i>
         </a>
@@ -40,104 +41,38 @@
   </div>
   <div class="texto-galeria">
     <div class="container">
-      Texto de teste texto de teste Texto de teste texto de teste Texto de teste texto de teste Texto de teste texto de teste Texto
-      de teste texto de teste Texto de teste texto de teste
+        O cuidado em identificar pontos críticos no aumento do diálogo entre os diferentes setores produtivos cumpre um papel essencial na formulação dos níveis de motivação departamental
     </div>
   </div>
-  <section class="p-0" id="portfolio">
-    <div class="container-fluid p-0">
-      <div class="row no-gutters popup-gallery">
-        <div class="col-lg-3 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
-              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
-              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
-              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
-              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
-              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
-              <img class="img-fluid" src="/assets/img/brasilcap.svg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-        </div>
+  <div class="galeria-fotos">
+    <div class="col-md-3 no-padding" *ngFor="let foto of listaFotosExibicao" (mouseenter)="mousein($event)" (mouseleave)="mouseout($event)">
+      <img alt="{{foto.nome}}"  id="{{foto._id}}" class="img-foto" src="{{foto.foto}}">
+      <div class="overlay">
+        <span class="circle">
+            <i class="fa fa-eye icon-eye" aria-hidden="true"></i>
+        </span>
+        <div class="text">{{foto.nome}}</div>
       </div>
     </div>
-  </section>
+  </div>
+ 
+
 </section>
+
+<section id="botaoVerTodos">
+<div class="container">
+    <div class="row" >
+      <div class="col-md-12">
+        <button id="btn-ver-todos" type="button"  [disabled]="verTodos" (click)="btnVerTodos()" *ngIf="listaFotos.length > 8"> 
+            VER TUDO
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Brasilcap 2017 © Todos os direitos reservados
+  </div>
+</footer>

@@ -1,4 +1,7 @@
- 
+* { 
+  transition: all 200ms ease;   
+}
+
 .ng2-pagination a{
 
   cursor: pointer;
@@ -4170,8 +4173,8 @@ th {
   }
   .navbar {
     position: relative;
-    min-height: 64px;
-    margin-bottom: 23px;
+    min-height: 64px; 
+    margin-bottom: 0px !important;
     border: 1px solid transparent;
   }
   @media (min-width: 768px) {
